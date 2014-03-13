@@ -670,7 +670,7 @@ ISITERABLE:
   if (PyAnySet_Check(obj))
   {
     PRINTMARK();
-    tc->type = JT_ARRAY;
+    tc->type = JT_SET;
     pc->iterBegin = Iter_iterBegin;
     pc->iterEnd = Iter_iterEnd;
     pc->iterNext = Iter_iterNext;

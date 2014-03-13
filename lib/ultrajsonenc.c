@@ -750,6 +750,35 @@ void encode(JSOBJ obj, JSONObjectEncoder *enc, const char *name, size_t cbName)
       break;
   }
 
+  case JT_SET:
+      {
+        count = 0;
+        enc->iterBegin(obj, &tc);
+
+        Buffer_AppendCharUnchecked (enc, '(');
+
+        while (enc->iterNext(obj, &tc))
+        {
+          if (count > 0)
+          {
+            Buffer_AppendCharUnchecked (enc, ',');
+#ifndef JSON_NO_EXTRA_WHITESPACE
+            Buffer_AppendCharUnchecked (buffer, ' ');
+#endif
+          }
+
+          iterObj = enc->iterGetValue(obj, &tc);
+
+          enc->level ++;
+          encode (iterObj, enc, NULL, 0);
+          count ++;
+      }
+
+      enc->iterEnd(obj, &tc);
+      Buffer_AppendCharUnchecked (enc, ')');
+      break;
+  }
+
   case JT_OBJECT:
   {
     count = 0;
