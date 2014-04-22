@@ -155,6 +155,7 @@ enum JSTYPES
   JT_UTF8,        //(char 8-bit)
   JT_ARRAY,       // Array structure
   JT_OBJECT,    // Key/Value structure
+  JT_SET, // Python Set
   JT_INVALID,    // Internal, do not return nor expect
 };
 
@@ -286,11 +287,13 @@ typedef struct __JSONObjectDecoder
   JSOBJ (*newString)(void *prv, wchar_t *start, wchar_t *end);
   void (*objectAddKey)(void *prv, JSOBJ obj, JSOBJ name, JSOBJ value);
   void (*arrayAddItem)(void *prv, JSOBJ obj, JSOBJ value);
+  void (*setAddItem)(void *prv, JSOBJ obj, JSOBJ value);
   JSOBJ (*newTrue)(void *prv);
   JSOBJ (*newFalse)(void *prv);
   JSOBJ (*newNull)(void *prv);
   JSOBJ (*newObject)(void *prv);
   JSOBJ (*newArray)(void *prv);
+  JSOBJ (*newSet)(void *prv);
   JSOBJ (*newInt)(void *prv, JSINT32 value);
   JSOBJ (*newLong)(void *prv, JSINT64 value);
   JSOBJ (*newDouble)(void *prv, double value);

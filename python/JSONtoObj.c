@@ -58,6 +58,13 @@ void Object_arrayAddItem(void *prv, JSOBJ obj, JSOBJ value)
   return;
 }
 
+void Object_setAddItem(void *prv, JSOBJ obj, JSOBJ value)
+{
+    PySet_Add(obj, value);
+    Py_DECREF((PyObject *) value);
+    return;
+}
+
 JSOBJ Object_newString(void *prv, wchar_t *start, wchar_t *end)
 {
   return PyUnicode_FromWideChar (start, (end - start));
@@ -86,6 +93,13 @@ JSOBJ Object_newObject(void *prv)
 JSOBJ Object_newArray(void *prv)
 {
   return PyList_New(0);
+}
+
+// PyAPI_FUNC(PyObject *) PySet_New(PyObject *);
+// PyAPI_FUNC(int) PySet_Add(PyObject *set, PyObject *key);
+JSOBJ Object_newSet(void *prv)
+{
+    return PySet_New(NULL);
 }
 
 JSOBJ Object_newInteger(void *prv, JSINT32 value)
@@ -121,11 +135,13 @@ PyObject* JSONToObj(PyObject* self, PyObject *args, PyObject *kwargs)
     Object_newString,
     Object_objectAddKey,
     Object_arrayAddItem,
+    Object_setAddItem,
     Object_newTrue,
     Object_newFalse,
     Object_newNull,
     Object_newObject,
     Object_newArray,
+    Object_newSet,
     Object_newInteger,
     Object_newLong,
     Object_newDouble,

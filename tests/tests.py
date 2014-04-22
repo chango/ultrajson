@@ -979,7 +979,11 @@ class UltraJSONTests(TestCase):
     def test_encodeSet(self):
         s = set([1,2,3,4,5,6,7,8,9])
         enc = ujson.encode(s)
+        self.assertTrue(enc.startsWith("("))
+        self.assertTrue(enc.endsWith("("))
         dec = ujson.decode(enc)
+
+        self.assertTrue(isinstance(dec, set))
 
         for v in dec:
             self.assertTrue(v in s)
