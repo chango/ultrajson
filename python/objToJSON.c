@@ -400,6 +400,32 @@ char *List_iterGetName(JSOBJ obj, JSONTypeContext *tc, size_t *outLen)
   return NULL;
 }
 
+void Set_iterEnd(JSOBJ obj, JSONTypeContext *tc)
+{
+}
+
+JSOBJ Set_iterGetValue(JSOBJ obj, JSONTypeContext *tc)
+{
+  return GET_TC(tc)->itemValue;
+}
+
+char *Set_iterGetName(JSOBJ obj, JSONTypeContext *tc, size_t *outLen)
+{
+  return NULL;
+}
+
+int Set_iterNext(JSOBJ obj, JSONTypeContext *tc)
+{
+  PyObject *item;
+
+  if (!_PySet_Next(obj, &GET_TC(tc)->index, &item)) {
+    return 0;
+  }
+
+  GET_TC(tc)->itemValue = item;
+  return 1;
+}
+
 //=============================================================================
 // Dict iteration functions
 // itemName might converted to string (Python_Str). Do refCounting
@@ -635,11 +661,12 @@ ISITERABLE:
   {
     PRINTMARK();
     tc->type = JT_SET;
-    pc->iterBegin = Iter_iterBegin;
-    pc->iterEnd = Iter_iterEnd;
-    pc->iterNext = Iter_iterNext;
-    pc->iterGetValue = Iter_iterGetValue;
-    pc->iterGetName = Iter_iterGetName;
+    pc->iterEnd = Set_iterEnd;
+    pc->iterNext = Set_iterNext;
+    pc->iterGetValue = Set_iterGetValue;
+    pc->iterGetName = Set_iterGetName;
+    GET_TC(tc)->index = 0;
+    GET_TC(tc)->itemValue = NULL;
     return;
   }
 

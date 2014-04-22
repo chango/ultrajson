@@ -1,5 +1,5 @@
 /*
-Developed by ESN, an Electronic Arts Inc. studio. 
+Developed by ESN, an Electronic Arts Inc. studio.
 Copyright (c) 2014, Electronic Arts Inc.
 All rights reserved.
 
@@ -17,7 +17,7 @@ derived from this software without specific prior written permission.
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL ELECTRONIC ARTS INC. BE LIABLE 
+DISCLAIMED. IN NO EVENT SHALL ELECTRONIC ARTS INC. BE LIABLE
 FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -69,7 +69,7 @@ static PyMethodDef ujsonMethods[] = {
 
 static struct PyModuleDef moduledef = {
   PyModuleDef_HEAD_INIT,
-  "ujson",
+  "changojson",
   0,              /* m_doc */
   -1,             /* m_size */
   ujsonMethods,   /* m_methods */
@@ -79,14 +79,14 @@ static struct PyModuleDef moduledef = {
   NULL            /* m_free */
 };
 
-#define PYMODINITFUNC       PyObject *PyInit_ujson(void)
+#define PYMODINITFUNC       PyObject *PyInit_changojson(void)
 #define PYMODULE_CREATE()   PyModule_Create(&moduledef)
 #define MODINITERROR        return NULL
 
 #else
 
-#define PYMODINITFUNC       PyMODINIT_FUNC initujson(void)
-#define PYMODULE_CREATE()   Py_InitModule("ujson", ujsonMethods)
+#define PYMODINITFUNC       PyMODINIT_FUNC initchangojson(void)
+#define PYMODULE_CREATE()   Py_InitModule("changojson", ujsonMethods)
 #define MODINITERROR        return
 
 #endif
