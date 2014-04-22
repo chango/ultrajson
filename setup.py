@@ -27,11 +27,11 @@ try:
 except(OSError):
     pass
 
-module1 = Extension('ujson',
-                    sources = ['./python/ujson.c', 
-                               './python/objToJSON.c', 
-                               './python/JSONtoObj.c', 
-                               './lib/ultrajsonenc.c', 
+module1 = Extension('changojson',
+                    sources = ['./python/ujson.c',
+                               './python/objToJSON.c',
+                               './python/JSONtoObj.c',
+                               './lib/ultrajsonenc.c',
                                './lib/ultrajsondec.c'],
                     include_dirs = ['./python', './lib'],
                     extra_compile_args=['-D_GNU_SOURCE'])
@@ -53,9 +53,9 @@ f = open('README.rst')
 try:
     README = f.read()
 finally:
-    f.close()    
-    
-setup (name = 'ujson',
+    f.close()
+
+setup (name = 'changojson',
        version = get_version(),
        description = "Ultra fast JSON encoder and decoder for Python",
        long_description = README,
@@ -64,7 +64,7 @@ setup (name = 'ujson',
        author_email="jonas.tarnstrom@esn.me",
        download_url="http://github.com/esnme/ultrajson",
        license="BSD License",
-       platforms=['any'],      
+       platforms=['any'],
        url="http://www.esn.me",
        classifiers=CLASSIFIERS,
        )
