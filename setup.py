@@ -67,6 +67,7 @@ setup (name = 'changojson',
        platforms=['any'],
        url="http://www.esn.me",
        classifiers=CLASSIFIERS,
+       zip_safe=False,
        )
 
 if sys.version_info[0] >= 3:
